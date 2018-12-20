@@ -1,0 +1,14 @@
+body {
+    background: #395af0;
+}
+
+.container {
+    background: white;
+    margin-top: 100px;
+    padding: 20px;
+    border-radius: 0.5em;
+}
+
+h1 {
+    margin: 30px;
+}
