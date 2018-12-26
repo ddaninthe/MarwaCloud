@@ -17,18 +17,25 @@
     </head>
     <body>
         <div class="container">
+            <div class="alert alert-danger alert-dismissible fade show offset-lg-2 col-lg-8" id="alertLogin" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Error.</strong> Incorrect login and/or password.
+            </div>
+
             <h1 class="offset-lg-4">Authentication</h1>
 
             <div class="col-lg-6 offset-lg-3">
                 <form id="loginForm">
                     <div class="form-group row">
-                        <label for="login" class="col-sm-2 col-form-label">Login</label>
+                        <label for="login" class="col-sm-2 col-form-label">Login*</label>
                         <div class="col-sm-10 col-lg-6">
                             <input type="text" class="form-control" name="login" id="login" required />
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="password" class="col-sm-2 col-form-label">Password</label>
+                        <label for="password" class="col-sm-2 col-form-label">Password*</label>
                         <div class="col-sm-10 col-lg-6">
                             <input type="password" class="form-control" name="password" id="password" required />
                         </div>
@@ -62,26 +69,28 @@
         <script src="assets/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function() {
+
                 $("#loginForm").submit(function(event) {
                     event.preventDefault();
 
-                    var login = $("#login").val();
-                    var psswd = $("#password").val();
-
                     $.ajax({
+                        url: "./pages/ldap_search.php",
                         type: "POST",
-                        crossDomain: true,
-                        url: "https://console.jumpcloud.com/api/v2/users/" + login + "/memberof",
-                        headers: {
-                            "Accept": "application/json",
-                            "Content-type": "application/json",
-                            "x-api-key": "18ba364730addbc2611ec25dc71f927c0aafaa35"
+                        data: {
+                            login: $("#login").val(),
+                            password: $("#password").val()
                         }
-                    }).done(function(data) {
+                    }).done(function(data, textStatus, jqXHR) {
                         console.log(data);
                     }).fail(function(jqXHR, textStatus, error) {
-                        $("#errorBody").html(error);
-                        $("#modal").modal();
+                        if (jqXHR.status == 401) {
+                            // Bad credentials
+                            $("#alertLogin").css("display", "block");
+                        } else {
+                            // Another error
+                            $("#errorBody").html(error);
+                            $("#modal").modal();
+                        }
                     });
                 });
             });
