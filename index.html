@@ -80,8 +80,21 @@
                             login: $("#login").val(),
                             password: $("#password").val()
                         }
-                    }).done(function(data, textStatus, jqXHR) {
+                    }).done(function(data) {
+                        // Successfully logged
                         console.log(data);
+
+                        // Get user infos
+                        /*$.ajax({
+
+                        }).done(function() {
+                            console.log("Second AJAX");
+                            console.log(data);
+                        }).fail(function(jqXHR, textStatus, error) {
+                            // Another error
+                            $("#errorBody").html(error);
+                            $("#modal").modal();
+                        });*/
                     }).fail(function(jqXHR, textStatus, error) {
                         if (jqXHR.status == 401) {
                             // Bad credentials

@@ -24,9 +24,6 @@ if ($ldap_connect) {
 
     if ($ldap_bind) {
         http_response_code(200);
-        setcookie("logged", true, time() + 60 * 60, '/'); // One hour
-
-
     } else {
         http_response_code(401);
     }
