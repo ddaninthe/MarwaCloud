@@ -17,10 +17,7 @@
     </head>
     <body>
         <div class="container">
-            <div class="alert alert-danger alert-dismissible fade show offset-lg-2 col-lg-8" id="alertLogin" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="alert alert-danger fade show offset-lg-2 col-lg-8" id="alertLogin" role="alert">
                 <strong>Error.</strong> Incorrect login and/or password.
             </div>
 
@@ -85,8 +82,14 @@
                         console.log(data);
 
                         // Get user infos
-                        /*$.ajax({
-
+                        $.ajax({
+                            url: "https://console.jumpcloud.com/api/v2/activedirectories/",
+                            method: "GET",
+                            headers: {
+                                "Accept": "application/json",
+                                "Content-Type": "application/json",
+                                "x-api-key": "b8069a7897a86981acc378f63bb32ebbf07c9d93"
+                            }
                         }).done(function() {
                             console.log("Second AJAX");
                             console.log(data);
@@ -94,7 +97,7 @@
                             // Another error
                             $("#errorBody").html(error);
                             $("#modal").modal();
-                        });*/
+                        });
                     }).fail(function(jqXHR, textStatus, error) {
                         if (jqXHR.status == 401) {
                             // Bad credentials
