@@ -1,12 +1,9 @@
 <?php
     require_once(__DIR__ . '/php/utils.php');
 
-    $user = $_GET['login'];
-
-    $data = execCurl('https://console.jumpcloud.com/api/systemusers/');
-
-    $json = json_encode($data, true);
-    echo $json->totalCount;
+    session_start();
+    //$_SESSION['user'] = "5c017702555f9d1b6a97718f";
+    $user = $_SESSION['user'];
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +40,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="disconnect()">Disconnect</a>
+                            <a class="nav-link" href="#" onclick="location.href='disconnect.php'">Disconnect</a>
                         </li>
                     </ul>
                 </div>
@@ -56,23 +53,19 @@
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/bootstrap.min.js"></script>
         <script>
-            function disconnect() {
-                // Just redirect
-                window.location.replace("/Projet/");
-            }
-
             jQuery(function($) {
-                var user = '<?php echo $_GET["login"]?>';
-
                 $.ajax({
                     url: './php/getUserGroups.php',
                     type: 'POST',
                     data: {
-                        user: '5c017702555f9d1b6a97718f'
+                        user: '<?php echo $user ?>'
                     }
                 }).done(function(data) {
-                    console.log("success");
-                    console.log(data);
+                    var json = JSON.parse(data);
+                    for(var group of json[0].paths[0][0].to.attributes.ldapGroups) {
+                        // Liste des groupes à afficher
+                        console.log(group.name);
+                    }
                 }).fail(function(jqXHR, textStatus, error) {
                     console.log(error);
                     console.log("Status: " + jqXHR.status);

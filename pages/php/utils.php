@@ -24,7 +24,6 @@
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
         $output = curl_exec($curl);
-
         if ($errno = curl_errno($curl)) {
             echo "error";
             $error_message = curl_strerror($errno);
@@ -33,7 +32,7 @@
 
         curl_close($curl);
 
-        $output = json_encode($output, true);
+        $output = json_decode($output);
         return $output;
     }
 ?>

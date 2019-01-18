@@ -82,9 +82,12 @@
                             password: $("#password").val()
                         }
                     }).done(function(data) {
-                        // Successfully logged                        
-                        window.location.replace("pages/user_homepage.html?login=" + login)  ;
+                        // Successfully logged  
+                        console.log("te");
+                        console.log(data);                      
+                        //window.location.replace("pages/user_homepage.html?login=" + login)  ;
                     }).fail(function(jqXHR, textStatus, error) {
+                        console.log(jqXHR.responseText);
                         if (jqXHR.status == 401) {
                             // Bad credentials
                             $("#alertLogin").css("display", "block");

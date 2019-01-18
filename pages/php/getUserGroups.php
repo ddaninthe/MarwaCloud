@@ -5,13 +5,12 @@
     if (!empty($user)) {
         $data = execCurl('https://console.jumpcloud.com/api/v2/users/' . $user . '/memberof');         
 
-        if (strpos($data, 'error') !== false) {
+        if (isset($data->message)) {
             http_response_code(500);
         } else {
             http_response_code(200);
         }
-
-        echo $data;
+        echo json_encode($data);
     } else {
         http_response_code(400);
     }
