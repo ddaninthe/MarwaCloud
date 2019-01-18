@@ -37,7 +37,7 @@
                             <input type="password" class="form-control" name="password" id="password" required />
                         </div>
                     </div>
-                    <input class="btn btn-primary offset-lg-4" type="submit" value="Submit" />
+                    <input class="btn btn-primary offset-lg-4" type="submit" id="btnSubmit" value="Submit" />
                 </form>
             </div>
         </div>
@@ -65,39 +65,25 @@
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
         <script>
-            $(document).ready(function() {
-
+            jQuery(function($) {
                 $("#loginForm").submit(function(event) {
                     event.preventDefault();
 
+                    var login = $("#login").val();
+
+                    var button = $("#btnSubmit");
+                    button.prop("disabled", true);
+
                     $.ajax({
-                        url: "./pages/ldap_search.php",
+                        url: "./pages/php/ldap_search.php",
                         type: "POST",
                         data: {
-                            login: $("#login").val(),
+                            login: login,
                             password: $("#password").val()
                         }
                     }).done(function(data) {
-                        // Successfully logged
-                        console.log(data);
-
-                        // Get user infos
-                        $.ajax({
-                            url: "https://console.jumpcloud.com/api/v2/activedirectories/",
-                            method: "GET",
-                            headers: {
-                                "Accept": "application/json",
-                                "Content-Type": "application/json",
-                                "x-api-key": "b8069a7897a86981acc378f63bb32ebbf07c9d93"
-                            }
-                        }).done(function() {
-                            console.log("Second AJAX");
-                            console.log(data);
-                        }).fail(function(jqXHR, textStatus, error) {
-                            // Another error
-                            $("#errorBody").html(error);
-                            $("#modal").modal();
-                        });
+                        // Successfully logged                        
+                        window.location.replace("pages/user_homepage.html?login=" + login)  ;
                     }).fail(function(jqXHR, textStatus, error) {
                         if (jqXHR.status == 401) {
                             // Bad credentials
@@ -107,6 +93,8 @@
                             $("#errorBody").html(error);
                             $("#modal").modal();
                         }
+                    }).always(function() {
+                        button.prop("disabled", false);
                     });
                 });
             });
