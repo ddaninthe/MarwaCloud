@@ -83,9 +83,7 @@
                         }
                     }).done(function(data) {
                         // Successfully logged  
-                        console.log("te");
-                        console.log(data);                      
-                        //window.location.replace("pages/user_homepage.html?login=" + login)  ;
+                        window.location.replace("pages/user_homepage.php");
                     }).fail(function(jqXHR, textStatus, error) {
                         console.log(jqXHR.responseText);
                         if (jqXHR.status == 401) {

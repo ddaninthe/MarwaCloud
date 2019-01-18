@@ -19,7 +19,6 @@ if ($ldap_connect) {
     ldap_set_option($ldap_connect, LDAP_OPT_PROTOCOL_VERSION, 3);
 
     $ldap_user_dn = getUserDn($login);
-
     
     // Binding
     $ldap_bind = ldap_bind($ldap_connect, $ldap_user_dn, $password);
@@ -28,7 +27,7 @@ if ($ldap_connect) {
         $data = execCurl('https://console.jumpcloud.com/api/systemusers/');
 
         foreach ($data->results as $result) {
-            if (strcmp($result->username, $user)) {
+            if (strcmp($result->username, $login) === 0) {
                 $id = $result->_id;
                 break;
             }

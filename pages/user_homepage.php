@@ -4,6 +4,7 @@
     session_start();
     //$_SESSION['user'] = "5c017702555f9d1b6a97718f";
     $user = $_SESSION['user'];
+    echo $user;
 ?>
 
 <!DOCTYPE html>
@@ -62,6 +63,8 @@
                     }
                 }).done(function(data) {
                     var json = JSON.parse(data);
+                    // TODO: check empty
+                    console.log(data);
                     for(var group of json[0].paths[0][0].to.attributes.ldapGroups) {
                         // Liste des groupes à afficher
                         console.log(group.name);
