@@ -24,15 +24,15 @@
         <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">Navbar</a>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">LDAP Dashboard</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div id="navbarNavDropdown" class="navbar-collapse collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Groups</a>
+                            <a class="nav-link" href="user_groups.php">My Groups</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Systems</a>
@@ -40,7 +40,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="location.href='disconnect.php'">Disconnect</a>
+                            <a class="nav-link" href="disconnect.php">Disconnect</a>
                         </li>
                     </ul>
                 </div>
@@ -50,7 +50,8 @@
             <hr>
             <div class="col" id="overview"></div>
             <div class="col">
-                <h5>Liste des machines associées</h5>
+                <h5>List of my Systems</h5>
+                <br/>
                 <table class="table table-sm table-hover" id="systemTable">
                     <thead>
                         <tr>
@@ -132,9 +133,6 @@
                                 { data: "architecture" }
                             ],
                             lengthMenu: [5, 10, 25],
-                            language: {
-                                url: "../assets/french.json"
-                            },
                             order: [[0, 'asc']]
                         });
                     }).fail(function(jqXHR, textStatus, error){
@@ -145,35 +143,6 @@
                     console.log("GetUserSystems: " + error);
                     console.log("Status: " + jqXHR.status);
                 });
-                
-                // Get user Groups
-                /*$.ajax({
-                    url: './php/getUserGroups.php',
-                    type: 'POST',
-                    data: {
-                        user: '<?php echo $user ?>'
-                    }
-                }).done(function(data) {
-                    var json = JSON.parse(data);
-                    console.log(json);
-                    var overview = $("#overview");
-                    if (json.length > 0) {
-                        overview.html("<p>Nombre de groupes : " + json.length + "</p>");
-                        for(var group of json) {
-                            // Liste des groupes à afficher
-                            console.log("id: " +group.id + ", name: " + group.paths[0][0].to.attributes.ldapGroups[0].name);
-                            groups.push({
-                                id: group.id,
-                                name: group.paths[0][0].to.attributes.ldapGroups[0].name;
-                            });
-                        }
-                    } else {
-                        overview.html("<p>Aucun Groupe d'utilisateurs associé.</p>");
-                    }
-                }).fail(function(jqXHR, textStatus, error) {
-                    console.log("GetUserGroups: " + error);
-                    console.log("Status: " + jqXHR.status);
-                });*/
             });
         </script>
     </body>
