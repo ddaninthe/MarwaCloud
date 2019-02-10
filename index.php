@@ -93,7 +93,7 @@
                         window.location.replace("pages/user_homepage.php");
                     }).fail(function(jqXHR, textStatus, error) {
                         console.log(jqXHR.responseText);
-                        if (jqXHR.status == 401) {
+                        if (jqXHR.status == 401 || (jqXHR.responseText && jqXHR.responseText.includes("Invalid credentials"))) {
                             // Bad credentials
                             $("#alertLogin").css("display", "block");
                         } else {
