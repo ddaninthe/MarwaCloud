@@ -4,7 +4,7 @@
     $user = $_POST['user'];
 
     if (!empty($user)) {
-        $data = execCurl('https://console.jumpcloud.com/api/v2/users/' . $user . '/memberof');  
+        $data = execCurl('https://console.jumpcloud.com/api/v2/users/' . $user . '/memberof');
 
         if (isset($data->message)) {
             http_response_code(500);

@@ -34,9 +34,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="user_groups.php">My Groups</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Systems</a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">

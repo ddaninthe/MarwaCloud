@@ -33,9 +33,6 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="#">My Groups</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Systems</a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -55,18 +52,20 @@
             var userGroups = Array();
 
             jQuery(function($) {
-                // Get user Systems
+                // Get user Groups
                 $.ajax({
-                    url: './php/getUserSystems.php',
+                    url: './php/getUserGroups.php',
                     type: 'POST',
                     data: {
                         user: '<?php echo $user ?>'
                     }
                 }).done(function(data) {
+                    console.log(data);
                     var json = JSON.parse(data);
                     for (var system of json) {
                         // Get User group
                         for (var group of system.paths[0]) {
+                            console.log(group);
                             if (group.to.type == "user_group") {
                                 var groupName = group.to.attributes.ldapGroups[0].name;
                                 if (userGroups.indexOf(groupName) < 0) {
@@ -91,7 +90,7 @@
                     $("#myGroups").html(htmlGroups);
                    
                 }).fail(function(jqXHR, textStatus, error) {
-                    console.log("GetUserSystems: " + error);
+                    console.log("GetUserGroups: " + error);
                     console.log("Status: " + jqXHR.status);
                 });
             });
