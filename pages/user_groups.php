@@ -60,12 +60,10 @@
                         user: '<?php echo $user ?>'
                     }
                 }).done(function(data) {
-                    console.log(data);
                     var json = JSON.parse(data);
                     for (var system of json) {
                         // Get User group
                         for (var group of system.paths[0]) {
-                            console.log(group);
                             if (group.to.type == "user_group") {
                                 var groupName = group.to.attributes.ldapGroups[0].name;
                                 if (userGroups.indexOf(groupName) < 0) {
